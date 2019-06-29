@@ -1,4 +1,4 @@
 Kubernetes
 
 - Use minikube.
-
+- or Set up a cluster (master, node1, node2)
