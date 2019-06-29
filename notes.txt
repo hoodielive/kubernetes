@@ -39,3 +39,8 @@ spec:
     image: schoolofdevops/vote:latest 
     ports:
       - containerPort: 80
+
+** Replication Controller, Replica Sets and Deployments ** 
+- Availability 
+- Fault Tolerance 
+
