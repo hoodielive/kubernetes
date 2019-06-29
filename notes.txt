@@ -2,3 +2,40 @@ Kubernetes
 
 - Use minikube.
 - or Set up a cluster (master, node1, node2)
+
+Namespaces:
+Key concepts -> 
+* running containers on multiple servers requires orchestration. 
+* pools of nodes 
+
+Pods 
+- process/pid namespace 
+- root fs namespace 
+- user namespace 
+ common:
+ - network namespace 
+ - hostname / uts namespace 
+ - volumes 
+
+Specs - will always follow this model: 
+
+API VERSION 
+Kind 
+Metadata 
+Spec 
+
+apiVersion: v1
+kind: Pod 
+metadata: 
+  name: vote 
+  labels: 
+    app: voting 
+    role: ui
+    tier: front 
+    env: dev 
+spec: 
+  containers: 
+  - name: vote 
+    image: schoolofdevops/vote:latest 
+    ports:
+      - containerPort: 80
