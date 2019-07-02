@@ -1,0 +1,30 @@
+Cluster Nodes 
+- These are nodes on which Kubernetes schedules an application's workload. 
+- They are the workhorses of the cluster. 
+- A Kubernetes cluster (k-cluster from now on) can have a few, dozens, hundred and even thousands,
+  of cluster nodes. 
+- Kubernetes has been built from the ground up for high scalability (modeled after Google borg).
+
+Worker Nodes: 
+Infrastructure:
+  1. VM 
+  2. Bare Metal 
+  3. On-premise 
+  4. Cloud 
+
+- Can run on Windows and Linux and its perfectly normal to have a mixed cluster. 
+
+# 3 services need to be running to qualify as a worker node:
+1. Kubelet: 
+   - This is the first and foremost service. 
+   - Kubelets are what is called, "primary node agents". 
+   - Uses pod specifications to make sure all of the containers of the corresponding pods are running and healthy.
+   - Pod specifications are files written in Yaml or JSON format, and they declaratively describe a pod. 
+   - Pod Specs are provided to Kubelet primarily through the API server. 
+2. Container Runtime:
+   - Kubernetes, by default, has used containerd since version 1.9 as its container runtime. 
+   - rkt or CRI-O, can be used. 
+   - Its responsible for managing and running the individual containers of a pod. 
+3. Kube-proxy: 
+   - This runs as a daemon and is a simple network proxy and load-balancer for all application services running 
+     on that particular node. 

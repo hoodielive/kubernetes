@@ -1,0 +1,31 @@
+Kubernetes Cluster 
+
+Etcd nodes 
+- Distributed key-value stores that stores all 'states' of the cluster. 
+- The number of etcd nodes has to be 'odd', as mandated by the Raft Consensus Protocol which 
+  coordinate among themselves. 
+- This is information on the topology of the cluster not data produced or consumed by applications 
+  running on the cluster. 
+- Like what services are running, network settings, secrets used and more. 
+
+Kubernetes Master nodes 
+- Form consensus among themselves similar to etcd nodes. 
+- These master nodes have to be an odd number as well. 
+- There should always be at least 3 master nodes in production and mission-critical systems. 
+- Master nodes manage the whole cluster. 
+- Management plane. 
+- Master nodes use the etcd cluster as a backing store. 
+- We should always put a load-balancer in front of the masters nodes with a well-known FQDN. 
+- All tools that are used to manage the Kubernetes cluster should access it through this Load-Balancer,
+  rather than using the public ip address of one of the master nodes. (BASTION)
+
+Kubernetes worker nodes 
+- Can be as low as 1 and does not have an upper limit. 
+- Communicates with master nodes 
+- Bidirectional communication is supported. 
+- This is not the case with Docker Swarm, because only manager nodes communicate with worker nodes and never 
+  the other way around. 
+- All ingress traffic accessing the applications running in the cluster should be going through another load-balancer. 
+- This is the application load-balancer or reverse proxy. 
+- We 'never' want external traffic to directly access any of the worker nodes. 
+

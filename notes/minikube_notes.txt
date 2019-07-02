@@ -1,0 +1,60 @@
+Minikube 
+- A tool that creates a 'single' node Kubernetes cluster in VirtualBox or Hyper-V 
+- Other hypervisors are supported. 
+- As a single node Kubernetes cluster, it is both a Kubernetes Master and worker node at the same time. 
+
+Commands:
+kubectl get nodes 
+
+Output: NAME  STATUS ROLES AGE VERSION 
+Note: <none> in the column ROLES means that its playing both a worker node and a master at the same time.
+
+- the node is called 'minikube'. 
+
+Deploy a pod to this cluster: 
+1. Create the following sample-pod.yaml file:
+
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: nginx 
+spec: 
+  containers:
+  - name: nginx 
+  image: nginx:alpine 
+  ports: 
+  - containerPort: 80
+  - containerPort: 443 
+
+2. kubectl create -f sample-pod.yaml
+expected output: pod "nginx" created. 
+
+3. kubectl get pods 
+NAME    READY    STATUS   RESTARTS  AGE
+nginx   1/1      Running  0         51s
+
+To be able to access this pod, you must create a 'service': 
+1. Create the folowing service file 'sample-service.yaml'
+apiVersion: v1
+kind: Service 
+metadata: 
+  name: nginx-service 
+spec: 
+  type: LoadBalancer 
+  ports:
+  - port: 8080 
+    targetPort: 80 
+    protocol: TCP 
+    name: http 
+  - port: 443 
+    protocol: TCP 
+    name: https 
+  selector:
+    app: nginx 
+
+2. kubectl create -f sample-service.yaml 
+
+3. curl -4 http://localhost 
+
+4. You should be receiving an nginx welcome page. 
+

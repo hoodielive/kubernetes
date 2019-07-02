@@ -1,0 +1,45 @@
+Kubernetes Master nodes 
+- Used to manage a Kubernetes cluster. 
+
+Master Infrastructe: 
+1. VM on-premise 
+2. Cloud 
+3. Server (bare-metal)
+
+- Master nodes only run on 'LINUX' i.e. ['RHEL', 'CENTOS', 'Ubuntu']
+
+On Linux Machine: 
+  1. API Server: this the gateway to Kubernetes. 
+    - All requests to:
+        1. List 
+        2. Create
+        3. Modify 
+        4. Delete 
+    any resources in the cluster must go through this service. 
+    - It exposes a REST interface that tools such as 'kubectl' use to manage the cluster and 
+      applications in the cluster. 
+  2. Controller: the controller manager, is a control loop that observes the state of the cluster
+     through the API server and makes changes, attempting to move the current or effective state toward 
+     the desired state. 
+  3. Scheduler: a service that tries its best to schedule pods on worker nodes considering various boundary
+     conditions, such as:
+        1. Resource requirements. 
+        2. Policies 
+        3. Quality-of-Service requirements.
+        4. etc. 
+  4. Cluster store: an instance of etcd that is used to store all information about the state of the cluster.
+     - Does not have to be installed on the same server that the Kubernetes service is running on. 
+     - Can be configured to use standalone clusters of etcd servers. 
+     - If high-availiability is a goal, then the etcd instances must also be configured in High-Availability mode, 
+       which normally means that you must configure at least 3 etcd instances. 
+     - The whole cluster state is stored in etcd. 
+       :: thats all the information about all the cluster nodes, all replica sets, deployments, secrets, network policies
+       , routing information and so on.
+
+- Requires at least 1 Master node but to acheive High Availiablity, you need at least 3. 
+- Kubernetes master ndoes never run 'an application workload'. 
+- Their sole purpose is to master the cluster. 
+- Builds a Raft Consensus group. 
+
+The Raft protocol is a standard protocol used in situations where a group of members need to make decisions. 
+

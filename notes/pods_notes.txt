@@ -1,0 +1,24 @@
+Pods 
+- Contrary to what is possible in a Docker Swarm, you canNOT run containers directly in a Kubernetes cluster. 
+- You can only run 'pods'.
+- Pods are an atomic unit of deployment in Kubernetes. 
+- A pod is an abstraction of one or many co-located containers that share the same Kernel namespaces, such as 
+  the network namespace. 
+
+The Anatomy of a Pod: 
+POD1 
+  netns: ip address 10.0.12.3 of Pod1
+    main-container port :80
+    support-container port :3000
+
+POD2 
+  netns: ip address 10.0.1.2.5 of Pod2
+
+These ip addresses are uniquely (in Kubernetes Cluster) assigned by Kubernetes.
+- Both are part of a private subnet managed by the Kubernetes network driver.
+
+More:
+- A pod can contain one or many containers. 
+- All these containers share the same kernel namespaces, and in particular they share the network namespace. 
+
+
